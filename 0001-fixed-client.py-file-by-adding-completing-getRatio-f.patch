@@ -1,0 +1,47 @@
+From a73f5a3f0dfd45e573250c0b58c723c91d4409cb Mon Sep 17 00:00:00 2001
+From: Tanmay-R-Choudhary <tanmay.d.choudhary@gmail.com>
+Date: Mon, 8 Jul 2024 13:49:46 +0530
+Subject: [PATCH] fixed client.py file by adding completing getRatio function
+
+---
+ .gitignore | 1 +
+ client3.py | 6 ++++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+ create mode 100644 .gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..a818497
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++jpmc-soft-dev/*
+\ No newline at end of file
+diff --git a/client3.py b/client3.py
+index 3fc09b7..5317b6b 100644
+--- a/client3.py
++++ b/client3.py
+@@ -42,7 +42,7 @@ def getDataPoint(quote):
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    return None if price_b == 0 else price_a / price_b
+ 
+ 
+ # Main
+@@ -52,8 +52,10 @@ if __name__ == "__main__":
+         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
+ 
+         """ ----------- Update to get the ratio --------------- """
++        stock_prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            stock_prices[stock] = price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(price, price))
++        print("Ratio %s" % getRatio(stock_prices['ABC'], stock_prices['DEF']))
+-- 
+2.34.1
+
